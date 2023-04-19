@@ -1,0 +1,36 @@
+# mariadb configuration properties
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3304/running_wishes
+    username: root
+    password: mypass
+    driver-class-name: org.mariadb.jdbc.Driver
+    testWhileIdle: true
+  jpa:
+#    defer-datasource-initialization: true
+    hibernate.ddl-auto: update
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+  hibernate:
+    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  # KAFKA config
+  kafka:
+    consumer:
+      group-id: custom
+      #     the consumers will start reading messages from the earliest one available
+      #     when there is no existing offset for that consumer.
+      auto-offset-reset: earliest
+    bootstrap-servers: localhost:9092
+
+# port on which springboot application is running
+server:
+  port: 8070
+
+running-wishes:
+  topic-name: upcomingCompetitions
+  publish-upcomingCompetitions:
+    cron: 0 0 12 * * ?
